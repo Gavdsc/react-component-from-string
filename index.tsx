@@ -2,23 +2,23 @@ import * as React from "react";
 import {FunctionComponent, ReactElement} from "react";
 
 /**
- * Interface: For mapped objects
+ * Interface: For key value maps
  */
-interface ObjectMap {
-    [key: string] : any
+interface INameValue<T> {
+    [key: string] : T
 }
 
 /**
- * ObjectMap: Object map library
+ * INameValue: Component Registry using key value
  */
-const componentRegistry: ObjectMap = {};
+const componentRegistry: INameValue<FunctionComponent | typeof React.Component> = {};
 
 /**
  * Function: Register component type and element constructor
  * @param type
  * @param constructor
  */
-export function registerComponent(type: string, constructor: FunctionComponent) {
+export function registerComponent(type: string, constructor: FunctionComponent | typeof React.Component) {
     componentRegistry[type] = constructor;
 }
 
@@ -26,7 +26,7 @@ export function registerComponent(type: string, constructor: FunctionComponent) 
  * Function: Return component constructors
  * @param type
  */
-export function getComponent(type: string): FunctionComponent {
+export function getComponent(type: string): FunctionComponent | typeof React.Component {
     return componentRegistry[type];
 }
 
